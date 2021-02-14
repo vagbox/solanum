@@ -94,22 +94,20 @@ privilegeset_index(struct PrivilegeSet *set)
 static void
 privilegeset_add_privs(struct PrivilegeSet *dst, const char *privs)
 {
-	size_t cur_size, alloc_size;
+	size_t alloc_size;
 	size_t n;
 
 	if (dst->priv_storage == NULL)
 	{
 		dst->stored_size = dst->allocated_size = 0;
-		cur_size = 0;
 		alloc_size = 256;
 	}
 	else
 	{
-		cur_size = dst->stored_size;
 		alloc_size = dst->allocated_size;
 	}
 
-	dst->stored_size = cur_size + strlen(privs) + 1;
+	dst->stored_size += strlen(privs) + 1;
 
 	while (alloc_size < dst->stored_size)
 		alloc_size *= 2;
