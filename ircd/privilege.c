@@ -334,7 +334,7 @@ privilegeset_diff(const struct PrivilegeSet *old, const struct PrivilegeSet *new
 	static const struct PrivilegeSet empty = { .size = 0, .privs = no_privs };
 	static struct PrivilegeSet *set_unchanged = NULL,
 	                           *set_added = NULL,
-							   *set_removed = NULL;
+	                           *set_removed = NULL;
 	static size_t n_privs = 0;
 	size_t new_size = n_privs ? n_privs : 32;
 	size_t i = 0, j = 0;
