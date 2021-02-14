@@ -373,10 +373,8 @@ privilegeset_diff(const struct PrivilegeSet *old, const struct PrivilegeSet *new
 	{
 		const char *oldpriv = NULL, *newpriv = NULL;
 		int ord = 0;
-		if (i < old->size)
-			oldpriv = old->privs[i];
-		if (j < new->size)
-			newpriv = new->privs[j];
+		oldpriv = privilegeset_privs(old)[i];
+		newpriv = privilegeset_privs(new)[j];
 
 		if (oldpriv && newpriv)
 			ord = strcmp(oldpriv, newpriv);
