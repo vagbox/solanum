@@ -80,8 +80,7 @@ privilegeset_index(struct PrivilegeSet *set)
 	const char *s;
 	const char **p;
 
-	if (set->privs != NULL)
-		rb_free(set->privs);
+	rb_free(set->privs);
 
 	set->privs = rb_malloc(sizeof *set->privs * (set->size + 1));
 	p = set->privs;
@@ -185,9 +184,10 @@ privilegeset_new_orphan(const char *name)
 static void
 privilegeset_free(struct PrivilegeSet *set)
 {
-	if (set->shadow)
-		privilegeset_free(set->shadow);
+	if (set == NULL)
+		return;
 
+	privilegeset_free(set->shadow);
 	rb_free(set->name);
 	rb_free(set->privs);
 	rb_free(set->priv_storage);
@@ -197,8 +197,7 @@ privilegeset_free(struct PrivilegeSet *set)
 static void
 privilegeset_shade(struct PrivilegeSet *set)
 {
-	if (set->shadow != NULL)
-		privilegeset_free(set->shadow);
+	privilegeset_free(set->shadow);
 
 	set->shadow = privilegeset_new_orphan(set->name);
 	set->shadow->privs = set->privs;
