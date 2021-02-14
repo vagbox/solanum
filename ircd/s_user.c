@@ -976,13 +976,6 @@ void
 report_priv_change(struct Client *client, struct PrivilegeSet *old, struct PrivilegeSet *new)
 {
 	const struct PrivilegeSet *added, *removed, *unchanged;
-	if (old == NULL && new == NULL)
-	{
-		new = client->user->privset;
-		if (new != NULL)
-			old = new->shadow;
-	}
-
 	const struct PrivilegeSet **result = privilegeset_diff(old, new);
 	unchanged = result[0];
 	added = result[1];

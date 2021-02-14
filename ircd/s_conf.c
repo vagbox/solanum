@@ -669,7 +669,8 @@ rehash(bool sig)
 	RB_DLINK_FOREACH(n, local_oper_list.head)
 	{
 		struct Client *oper = n->data;
-		report_priv_change(oper, NULL, NULL);
+		struct PrivilegeSet *privset = oper->user->privset;
+		report_priv_change(oper, privset ? privset->shadow : NULL, privset);
 	}
 
 	privilegeset_cleanup_rehash();
